@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Welcome to Your Dashboard</h1>
+    <div class="tabs">
+        <button class="tab-button active" data-tab="courses">Courses</button>
+        <button class="tab-button" data-tab="conversations">Conversations</button>
+    </div>
+
+    <div id="courses" class="tab-content active">
+        <a href="{% url 'create_course' %}" class="btn btn-primary">Create Course</a>
+        <div class="course-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                <h3>{{ course.title }}</h3>
+                <p>{{ course.description }}</p>
+                <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">View Course</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="conversations" class="tab-content">
+        <a href="{% url 'new_conversation' %}" class="btn btn-primary">New Conversation</a>
+        <div class="conversation-grid">
+            {% for conversation in conversations %}
+            <div class="conversation-card">
+                <h3>{{ conversation.title }}</h3>
+                <p>{{ conversation.created_at }}</p>
+                <a href="{% url 'conversation_detail' conversation.id %}" class="btn btn-secondary">View Conversation</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById(button.dataset.tab).classList.add('active');
+        });
+    });
+</script>
+{% endblock %}

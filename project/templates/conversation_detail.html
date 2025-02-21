@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="conversation-detail-container">
-    <h1>{{ conversation.title }}</h1>
-    <div class="messages">
+<div class="conversation-container">
+    <div class="conversation-header">
+        <h1>{{ conversation.title }}</h1>
+    </div>
+    
+    <div class="messages-container">
         {% for message in messages %}
         <div class="message {% if message.is_user %}user-message{% else %}ai-message{% endif %}">
             <p>{{ message.content }}</p>
@@ -20,11 +23,14 @@
         </div>
         {% endfor %}
     </div>
+    
     <div class="chat-input">
-        <form method="post">
+        <form method="post" class="ask-ai-form">
             {% csrf_token %}
-            <input type="text" name="message" placeholder="Ask AI..." required>
-            <button type="submit">Send</button>
+            <input type="text" name="question" placeholder="Ask AI..." required>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </form>
     </div>
 </div>

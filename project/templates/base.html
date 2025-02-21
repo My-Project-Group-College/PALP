@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Education Platform</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'dashboard' %}">Manage Learning</a>
+            <select id="language-selector">
+                <option value="en">English</option>
+                <!-- Add more languages -->
+            </select>
+            <div class="user-details">
+                <span>{{ request.user.email }}</span>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2023 Personalized Education Platform</p>
+    </footer>
+    <script src="{% static 'js/quiz.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="assessment-container">
+    <h1>Assessment</h1>
+    <div class="topics-list">
+        {% for assessment in assessments %}
+        <div class="topic-card">
+            <h3>{{ assessment.title }}</h3>
+            <p>{{ assessment.description }}</p>
+            {% if assessment.is_unlocked %}
+                <a href="{% url 'take_test' assessment.id %}" class="btn btn-primary">Start Test</a>
+            {% else %}
+                <button disabled class="btn btn-secondary">Locked</button>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'course_detail' course.id %}" class="btn btn-back">Back</a>
+</div>
+{% endblock %}

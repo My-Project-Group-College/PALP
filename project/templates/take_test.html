@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="quiz-container">
+    <h1>{{ assessment.title }}</h1>
+    <div class="progress-bar">
+        <div class="progress" style="width: 0%"></div>
+    </div>
+    
+    <form id="quiz-form" method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div class="question" data-question-id="{{ question.id }}">
+            <h3>{{ question.text }}</h3>
+            {% for answer in question.answer_set.all %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" 
+                       name="question_{{ question.id }}" 
+                       id="answer_{{ answer.id }}" 
+                       value="{{ answer.id }}">
+                <label class="form-check-label" for="answer_{{ answer.id }}">
+                    {{ answer.text }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        
+        <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" id="prev-btn">Previous</button>
+            <button type="button" class="btn btn-primary" id="next-btn">Next</button>
+            <button type="submit" class="btn btn-success" id="submit-btn">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
